@@ -1,0 +1,11 @@
+torch>=1.7.0
+torchvision==0.8.1
+pandas>=1.1.0
+scikit_learn==0.23.1
+numpy==1.21.2
+fbpca==1.0
+torch-cluster==1.5.9
+torch-geometric==2.0.1
+torch-scatter==2.0.8
+torch-sparse==0.6.12
+torch-spline-conv==1.2.1
