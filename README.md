@@ -39,213 +39,29 @@ python utils/preprocess_data.py --data wikipedia --bipartite
 python utils/preprocess_data.py --data reddit --bipartite
 ```
 
-### Link prediction
-To reproduce the results for link prediction on the wikipedia, reddit and mooc datasets,
-```{bash}
-# TGN-attn: Supervised learning on the wikipedia dataset
-python train_self_supervised.py --use_memory --prefix tgn-attn --n_runs 10
 
-# TGN-attn-reddit: Supervised learning on the reddit dataset
-python train_self_supervised.py -d reddit --use_memory --prefix tgn-attn-reddit --n_runs 10
-```
-
-
-### Node Classification 
-Supervised learning on dynamic node classification (this requires a trained model from 
-the self-supervised task, by eg. running the commands above):
-```{bash}
-# TGN-attn: self-supervised learning on the wikipedia dataset
-python train_supervised.py --use_memory --prefix tgn-attn --n_runs 10
-
-# TGN-attn-reddit: self-supervised learning on the reddit dataset
-python train_supervised.py -d reddit --use_memory --prefix tgn-attn-reddit --n_runs 10
-```
-
-
-
-## Citation 
-If you consider our codes and datasets useful, please cite:
-```
-@inproceedings{zheng2021how,
-  title={How Framelets Enhance Graph Neural Networks},
-  author={Zheng, Xuebin and Zhou, Bingxin and Gao, Junbin and Wang, Yu Guang and Lio, Pietro and Li, Ming and Montufar, Guido},
-  booktitle={ICML},
-  year={2021}
-}
-```
-
-## Contributing
-Copyright (c) <2020>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## Running the experiments
 
-### Requirements
 
-Dependencies (with python >= 3.7):
-
+### Self-supervised learning using the link prediction task:
 ```{bash}
-pandas==1.1.0
-torch==1.6.0
-scikit_learn==0.23.1
+# Transductive learning on the wikipedia dataset
+python  link_prediction_transductive.py --data wikipedia --drop_out 0.3 --num_modes 70 --memory_dim 150 --n_runs 1 
+
+# Inductive learning on the wikipedia dataset
+python link_prediction_inductive.py  --data wikipedia --drop_out 0.3  --memory_dim 150 --gpu 0 --early_stopper 10 --n_runs 1 --num_modes 70 
 ```
 
-### Dataset and Preprocessing
-
-#### Download the public data
-Download the sample datasets (eg. wikipedia and reddit) from
-[here](http://snap.stanford.edu/jodie/) and store their csv files in a folder named
-```data/```.
-
-#### Preprocess the data
-We use the dense `npy` format to save the features in binary format. If edge features or nodes 
-features are absent, they will be replaced by a vector of zeros. 
+### Supervised learning on dynamic node classification 
+(this requires a trained model from the self-supervised task, by eg. running the commands above):
 ```{bash}
-python utils/preprocess_data.py --data wikipedia --bipartite
-python utils/preprocess_data.py --data reddit --bipartite
+# Node classification
+python node_classification.py --drop_out 0.3 --num_modes 70 --memory_dim 150 --n_runs 1 
+
 ```
 
 
 
-### Model Training
-
-Self-supervised learning using the link prediction task:
-```{bash}
-# TGN-attn: Supervised learning on the wikipedia dataset
-python train_self_supervised.py --use_memory --prefix tgn-attn --n_runs 10
-
-# TGN-attn-reddit: Supervised learning on the reddit dataset
-python train_self_supervised.py -d reddit --use_memory --prefix tgn-attn-reddit --n_runs 10
-```
-
-Supervised learning on dynamic node classification (this requires a trained model from 
-the self-supervised task, by eg. running the commands above):
-```{bash}
-# TGN-attn: self-supervised learning on the wikipedia dataset
-python train_supervised.py --use_memory --prefix tgn-attn --n_runs 10
-
-# TGN-attn-reddit: self-supervised learning on the reddit dataset
-python train_supervised.py -d reddit --use_memory --prefix tgn-attn-reddit --n_runs 10
-```
-
-### Baselines
-
-```{bash}
-### Wikipedia Self-supervised
-
-# Jodie
-python train_self_supervised.py --use_memory --memory_updater rnn --embedding_module time --prefix jodie_rnn --n_runs 10
-
-# DyRep
-python train_self_supervised.py --use_memory --memory_updater rnn --dyrep --use_destination_embedding_in_message --prefix dyrep_rnn --n_runs 10
-
-
-### Reddit Self-supervised
-
-# Jodie
-python train_self_supervised.py -d reddit --use_memory --memory_updater rnn --embedding_module time --prefix jodie_rnn_reddit --n_runs 10
-
-# DyRep
-python train_self_supervised.py -d reddit --use_memory --memory_updater rnn --dyrep --use_destination_embedding_in_message --prefix dyrep_rnn_reddit --n_runs 10
-
-
-### Wikipedia Supervised
-
-# Jodie
-python train_supervised.py --use_memory --memory_updater rnn --embedding_module time --prefix jodie_rnn --n_runs 10
-
-# DyRep
-python train_supervised.py --use_memory --memory_updater rnn --dyrep --use_destination_embedding_in_message --prefix dyrep_rnn --n_runs 10
-
-
-### Reddit Supervised
-
-# Jodie
-python train_supervised.py -d reddit --use_memory --memory_updater rnn --embedding_module time --prefix jodie_rnn_reddit --n_runs 10
-
-# DyRep
-python train_supervised.py -d reddit --use_memory --memory_updater rnn  --dyrep --use_destination_embedding_in_message --prefix dyrep_rnn_reddit --n_runs 10
-```
-
-
-### Ablation Study
-Commands to replicate all results in the ablation study over different modules:
-```{bash}
-# TGN-2l
-python train_self_supervised.py --use_memory --n_layer 2 --prefix tgn-2l --n_runs 10 
-
-# TGN-no-mem
-python train_self_supervised.py --prefix tgn-no-mem --n_runs 10 
-
-# TGN-time
-python train_self_supervised.py --use_memory --embedding_module time --prefix tgn-time --n_runs 10 
-
-# TGN-id
-python train_self_supervised.py --use_memory --embedding_module identity --prefix tgn-id --n_runs 10
-
-# TGN-sum
-python train_self_supervised.py --use_memory --embedding_module graph_sum --prefix tgn-sum --n_runs 10
-
-# TGN-mean
-python train_self_supervised.py --use_memory --aggregator mean --prefix tgn-mean --n_runs 10
-```
-
-
-#### General flags
-
-```{txt}
-optional arguments:
-  -d DATA, --data DATA         Data sources to use (wikipedia or reddit)
-  --bs BS                      Batch size
-  --prefix PREFIX              Prefix to name checkpoints and results
-  --n_degree N_DEGREE          Number of neighbors to sample at each layer
-  --n_head N_HEAD              Number of heads used in the attention layer
-  --n_epoch N_EPOCH            Number of epochs
-  --n_layer N_LAYER            Number of graph attention layers
-  --lr LR                      Learning rate
-  --patience                   Patience of the early stopping strategy
-  --n_runs                     Number of runs (compute mean and std of results)
-  --drop_out DROP_OUT          Dropout probability
-  --gpu GPU                    Idx for the gpu to use
-  --node_dim NODE_DIM          Dimensions of the node embedding
-  --time_dim TIME_DIM          Dimensions of the time embedding
-  --use_memory                 Whether to use a memory for the nodes
-  --embedding_module           Type of the embedding module
-  --message_function           Type of the message function
-  --memory_updater             Type of the memory updater
-  --aggregator                 Type of the message aggregator
-  --memory_update_at_the_end   Whether to update the memory at the end or at the start of the batch
-  --message_dim                Dimension of the messages
-  --memory_dim                 Dimension of the memory
-  --backprop_every             Number of batches to process before performing backpropagation
-  --different_new_nodes        Whether to use different unseen nodes for validation and testing
-  --uniform                    Whether to sample the temporal neighbors uniformly (or instead take the most recent ones)
-  --randomize_features         Whether to randomize node features
-  --dyrep                      Whether to run the model as DyRep
-```
-
-## TODOs 
-* Make code memory efficient: for the sake of simplicity, the memory module of the TGN model is 
-implemented as a parameter (so that it is stored and loaded together of the model). However, this 
-does not need to be the case, and 
-more efficient implementations which treat the models as just tensors (in the same way as the 
-input features) would be more amenable to large graphs.
-
-## Cite us
-
-```bibtex
-@inproceedings{tgn_icml_grl2020,
-    title={Temporal Graph Networks for Deep Learning on Dynamic Graphs},
-    author={Emanuele Rossi and Ben Chamberlain and Fabrizio Frasca and Davide Eynard and Federico 
-    Monti and Michael Bronstein},
-    booktitle={ICML 2020 Workshop on Graph Representation Learning},
-    year={2020}
-}
-```
 
 
