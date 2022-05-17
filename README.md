@@ -1,4 +1,5 @@
-# Spectral Transform Forms Scalable Transformer [[arXiv](https://arxiv.org/abs/2111.07602)] 
+# Spectral Transform Forms Scalable Transformer 
+<!-- [[arXiv](https://arxiv.org/abs/2111.07602)]  -->
 
 
 ![](figures/fig1.png)	
