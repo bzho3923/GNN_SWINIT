@@ -1,4 +1,4 @@
-# Spectral Transform Forms Scalable Transformer 
+# Spectral Transformers for Dynamic Graph Learning
 <!-- [[arXiv](https://arxiv.org/abs/2111.07602)]  -->
 
 
