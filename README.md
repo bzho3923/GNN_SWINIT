@@ -1,4 +1,4 @@
-# SWINIT: Spectral Transform Forms Scalable Transformer [[arXiv](https://arxiv.org/abs/2111.07602)] 
+# Spectral Transform Forms Scalable Transformer [[arXiv](https://arxiv.org/abs/2111.07602)] 
 
 
 ![](figures/fig1.png)	
@@ -8,10 +8,10 @@
 
 ## Introduction
 
-Many real-world relational systems, such as social networks and biological systems, contain dynamic interactions. When learning dynamic graph representation, it is essential to employ sequential temporal information and geometric structure. Mainstream work achieves topological embedding via message passing networks (e.g., GCN, GAT). The temporal evolution, on the other hand, is conventionally expressed via memory units (e.g., LSTM or GRU) that possess convenient information filtration in a gate mechanism. Though, such a design prevents large-scale input sequence due to the over-complicated encoding. This work learns from the philosophy of self-attention and proposes an efficient spectral-based neural unit that employs informative long-range temporal interaction. The developed spectral window unit (SWINIT) model predicts scalable dynamic graphs with assured efficiency. The architecture is assembled with a few simple effective computational blocks that constitute randomized SVD, MLP, and graph Framelet convolution. The SVD plus MLP module encodes the long-short-term feature evolution of the dynamic graph events. A fast framelet graph transform in the framelet convolution embeds the structural dynamics. Both strategies enhance the model ability on scalable analysis. In particular, the iterative SVD approximation shrinks the computational complexity of attention to $\mathcal{O}(Nd\log(d))$ for the dynamic graph with $N$ edges and $d$ edge features, and the multiscale transform of framelet convolution allows sufficient scalability in the network training. Our SWINIT achieves state-of-the-art performance on a variety of online continuous-time dynamic graph learning tasks, while compared to baseline methods, the number of its learnable parameters reduces by up to seven times.
+This work establishes a fully-spectral framework to capture informative long-range temporal interactions in a dynamic system. We propose spectral transformer for predicting continuous-time dynamic graphs. Our model uses power method SVD and global graph framelet convolution to encode time-depending features and graph structure. The SVD serves as a high-order linear self-attention with determined propagation rules. The spectral transformer thus gains high expressivity in linear complexity by amending unbalanced energy of graph latent representations in the network. The framelet convolution in the second stage of the model establishes scalable and transferable geometric characterization for prediction. We examine the efficiency of the proposed model on a variety of online learning tasks. It achieves top performance with a reduced number of learnable parameters and faster propagation speed.
 
 
-#### Paper link: [Spectral Transform Forms Scalable Transformer](https://arxiv.org/abs/2111.07602)
+<!-- #### Paper link: [Spectral Transform Forms Scalable Transformer](https://arxiv.org/abs/2111.07602) -->
 
 ## Requirements
 
