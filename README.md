@@ -1,4 +1,4 @@
-# Spectral Transformers for Dynamic Graph Learning
+# Well-conditioned Spectral Transforms for Dynamic Graph Representation
 <!-- [[arXiv](https://arxiv.org/abs/2111.07602)]  -->
 
 
@@ -9,7 +9,7 @@
 
 ## Introduction
 
-This work establishes a fully-spectral framework to capture informative long-range temporal interactions in a dynamic system. We propose spectral transformer for predicting continuous-time dynamic graphs. Our model uses power method SVD and global graph framelet convolution to encode time-depending features and graph structure. The SVD serves as a high-order linear self-attention with determined propagation rules. The spectral transformer thus gains high expressivity in linear complexity by amending unbalanced energy of graph latent representations in the network. The framelet convolution in the second stage of the model establishes scalable and transferable geometric characterization for prediction. We examine the efficiency of the proposed model on a variety of online learning tasks. It achieves top performance with a reduced number of learnable parameters and faster propagation speed.
+This work establishes a fully-spectral framework to capture informative long-range temporal interactions in a dynamic system. We connect the spectral transform to the low-rank self-attention mechanisms and investigate its energy-balancing effect and computational efficiency. Based on the observations, we leverage the adaptive power method SVD and global graph framelet convolution to encode time-dependent features and graph structure for continuous-time dynamic graph representation learning. The former serves as an efficient high-order linear self-attention with determined propagation rules, and the latter establishes scalable and transferable geometric characterization for property prediction. Empirically, the proposed model learns well-conditioned hidden representations on a variety of online learning tasks, and it achieves top performance with a reduced number of learnable parameters and faster propagation speed.
 
 
 <!-- #### Paper link: [Spectral Transform Forms Scalable Transformer](https://arxiv.org/abs/2111.07602) -->
@@ -59,6 +59,13 @@ python node_classification.py --drop_out 0.3 --num_modes 70 --memory_dim 150 --n
 ```
 
 
+## Citation
+If you find this repository helpful, please cite our paper with the bibtex below:
 
-
+> @inproceedings{zhou2022spedgnn,  
+    title={Well-conditioned Spectral Transforms for Dynamic Graph Representation},  
+    author={Zhou, Bingxin and Liu, Xinliang and Liu, Yuehua and Huang, Yunying and Lio, Pietro and Wang, YuGuang},  
+    booktitle={Learning on Graphs (LOG) Conference},  
+    year={2022}  
+}
 
