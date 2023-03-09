@@ -12,7 +12,7 @@
 This work establishes a fully-spectral framework to capture informative long-range temporal interactions in a dynamic system. We connect the spectral transform to the low-rank self-attention mechanisms and investigate its energy-balancing effect and computational efficiency. Based on the observations, we leverage the adaptive power method SVD and global graph framelet convolution to encode time-dependent features and graph structure for continuous-time dynamic graph representation learning. The former serves as an efficient high-order linear self-attention with determined propagation rules, and the latter establishes scalable and transferable geometric characterization for property prediction. Empirically, the proposed model learns well-conditioned hidden representations on a variety of online learning tasks, and it achieves top performance with a reduced number of learnable parameters and faster propagation speed.
 
 
-Paper link: [Spectral Transform Forms Scalable Transformer](https://proceedings.mlr.press/v198/zhou22a.html)
+Paper link: [Well-conditioned Spectral Transforms for Dynamic Graph Representation](https://proceedings.mlr.press/v198/zhou22a.html)
 
 
 
